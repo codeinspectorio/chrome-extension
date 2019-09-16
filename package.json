@@ -1,0 +1,52 @@
+{
+  "name": "chrome-plugin",
+  "version": "1.0.0",
+  "description": "Chrome plugin to view code inspector results on Github",
+  "main": "js/background.js",
+  "scripts": {
+    "clean": "rm -f js/filefunctions-test.js js/file.js js/treefunctions-test.js js/tree.js js/backgroundfunctions-test.js js/background.js js/optionsfunctions-test.js js/options.js js/repositoriesfunctions-test.js js/repositories.js codeInpsectorChromeExtension.zip",
+    "build-plugin": "cat js/filefunctions.js js/filecontent.js > js/file.js; cat js/treefunctions.js js/treecontent.js > js/tree.js; cat js/backgroundfunctions.js js/backgroundcontent.js > js/background.js; cat js/repositoriesfunctions.js js/repositoriescontent.js > js/repositories.js;cat js/optionsfunctions.js js/optionscontent.js > js/options.js;",
+    "package-plugin": "npm run build-plugin; mkdir zip_folder; cd zip_folder; mkdir js; mkdir images; mkdir css; cd ..; cp ./js/{file.js,background.js,options.js,repositories.js,tree.js} ./zip_folder/js/; cp ./{jquery-3.4.1.min.js,options.html,popup.html,manifest.json} ./zip_folder/; cp -a ./css/ ./zip_folder/css/; cp -a ./images/ ./zip_folder/images/; zip -r codeInpsectorChromeExtension.zip zip_folder; rm -r zip_folder",
+    "prepare-tests": "cat js/filefunctions.js > js/filefunctions-test.js ; echo 'export {setCollapse, fetchData, addFileInfoToPage};' >> js/filefunctions-test.js; cat js/treefunctions.js > js/treefunctions-test.js ; echo 'export {addInfoToPage};' >> js/treefunctions-test.js; cat js/backgroundfunctions.js > js/backgroundfunctions-test.js ; echo 'export { validKeysFetch, treeFetch, repoTabFetch, fileFetchHelper, timeout };' >> js/backgroundfunctions-test.js; cat js/optionsfunctions.js > js/optionsfunctions-test.js ; echo 'export { testFetch, firstMessage };' >> js/optionsfunctions-test.js;cat js/repositoriesfunctions.js > js/repositoriesfunctions-test.js ; echo 'export { addProjectInfoToPage,  addBadgeStyle };' >> js/repositoriesfunctions-test.js;",
+    "run-tests": "nyc mocha --require @babel/register spec/spec.js spec/filetests.js spec/backgroundtests.js --timeout 6000",
+    "test": "npm run prepare-tests && npm run run-tests"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "js/backgroundfunctions-test.js",
+      "js/treefunctions-test.js",
+      "js/filefunctions-test.js",
+      "js/*.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/tdfinder/chrome-plugin-devel.git"
+  },
+  "author": "James Zhou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/tdfinder/chrome-plugin-devel/issues"
+  },
+  "homepage": "https://gitlab.com/tdfinder/chrome-plugin-devel#readme",
+  "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "chai": "^4.2.0",
+    "core-js": "^3.2.1",
+    "fetch-mock": "^7.3.9",
+    "jsdom": "^15.1.1",
+    "mocha": "^6.2.0",
+    "node-fetch": "^2.6.0",
+    "regenerator-runtime": "^0.13.3",
+    "sinon": "^7.4.1"
+  },
+  "devDependencies": {
+    "nyc": "^14.1.1",
+    "sinon-chrome": "^3.0.1"
+  }
+}

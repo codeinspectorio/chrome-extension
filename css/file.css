@@ -1,0 +1,31 @@
+.collapsible {
+  cursor: pointer;
+  display: block;
+  margin: 0 0 0 auto;
+  outline: none;
+  text-align: center;
+  color: white;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem;
+  border: none;
+}
+.collapseContain {
+  float: right;
+}
+
+.active {
+  width: 100%;
+}
+.collapsible:hover {
+  border: 1px solid black;
+}
+.badgeDropdownContent {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-radius: 0.6rem;
+}
