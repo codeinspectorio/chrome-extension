@@ -41,7 +41,7 @@
     "fetch-mock": "^7.3.9",
     "jsdom": "^15.1.1",
     "mocha": "^6.2.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "regenerator-runtime": "^0.13.3",
     "sinon": "^7.4.1"
   },
